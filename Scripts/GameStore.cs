@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 using SPACE_UTIL;
 
@@ -37,7 +38,7 @@ namespace SPACE_GAME
 		{
 			Debug.Log(C.method(this, "orange"));
 			GameStore.playerStats.gameTime += currTime;
-			GameStore.playerStats.HISTORY.Add(currTime);
+			GameStore.playerStats.HISTORY.Add($"{SceneManager.GetActiveScene().name} --> {currTime}");
 			GameStore.playerStats.Save();
 		}
 		#endregion
@@ -47,7 +48,7 @@ namespace SPACE_GAME
 	public class PlayerStats
 	{
 		public float gameTime;
-		public List<float> HISTORY = new List<float>();
+		public List<string> HISTORY = new List<string>();
 		public void Save()
 		{
 			LOG.SaveGameData(GameDataType.playerStats, this.ToJson());
